@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h1> Big text here</h1>
+    <p id="demo"></p> -->
+    <input type="number" id="num"/>
+    <!-- <button onclick="getBills(this)">submit</button> -->
+    <table id="demo"></table>
+    <script>
+        document.getElementById("num").addEventListener("keyup", getBills)
+        function getBills(event) {
+            // console.log(event);
+            let totalSum = event.target.value;
+            let result = {};
+            let bills = [1,5,10,20,50,100];
+            let displayTable = "<tr><th>Bills</th><th>Multiple</th></tr>"
+            for (i = bills.length - 1; i >= 0; i--) {
+                if (totalSum < bills[i]) {
+                    continue;
+                }
+                let multiple = Math.floor(totalSum / bills[i]);
+                let val = bills[i];
+                result[val] = multiple;
+                // console.log(multiple + " x bills of " + val )
+                // console.log(`${multiple} x bills of ${val}`)
+                displayTable = displayTable + `<tr><td>${val}</td> <td>${multiple} </td></tr>`
+                totalSum = totalSum % bills[i];
+                if (totalSum === 0) {
+                    break;
+                }
+            }
+            // displayTable = displayTable + "</tbody>"
+            document.getElementById("demo").innerHTML = displayTable;
+            return result;
+        } 
+        //  console.log(getBills(158));
+    </script>
+</body>
+</html>
